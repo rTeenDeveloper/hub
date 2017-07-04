@@ -35,7 +35,7 @@
     "recursive-readdir-sync": "^1.0.6",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "passport": "^3.0.2"
+    "passport": "^0.3.2"
   },
   "devDependencies": {
     "airbnb-style": "^2.0.0",
