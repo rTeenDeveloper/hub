@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+
+before_install:
+  - npm i -g lerna # this will speed things up on npm5
+  - npm i -g npm@4 # npm v5 doesnt really work with lerna
+
+before_script:
+  - lerna bootstrap --hoist
+
+script: lerna run ci
+
+notifications:
+  slack:
+    rooms:
+      secure: ayjzyECq3QLCOn+67FeqdFJE7cL+qJO8zrAqqOXyA2oaTZrb9wVvbzes4UT8cIx94rTDPHl1Dxgqwc7RxGUDlGw9uMHQLKp+zIZwgD25CSpXDntf0JMH/6nzBGx8389ogom7S0AEJevKZQdRQnpFvuHYS+uZIWVa9PDvQd5LSF1iSgjki4ILQo/Ndes8YVd8rI5RAMWDWYvC8o6bwHhvcYGQGLyb/7RmryBZVMJghyGrH+oCDMboa0idN6bWKSlIvSnFsUKpW2Hse4DUOzRn98G8RnW+L3IF9cBAOrS/54DdG2+OUSbooXlQ/ElL0ZltfakWuL08OwatgGejLkWoweYu+5Rgslh0b+MZvEdy9yVZmtgTRm7iS39HjjpWap0t9AnrHOEQinpdjm1shs4QQV1VJTbNdtG4hVxGVhMbkTsLCVZjNdnJGAwaFl5+7ocdLlKHkbYAn5adDpEGtBeQgI8JwokgN+ONVcF6/oxNdgV4rk+P1lly/kaWz83EUwl6JLNb9wIH/r8vCWvK6zqeeGHalbuwZwM9KYiG4JFfhlrUrmdFCg5u6E+3Z6Vtszru8fIVso9c+VsKKdWl+jwxd411VYqx1JfntlAjAuHTo25vhYbQPOdbAEA9cxVUz0+MPS1vpJEBAm9ckB/GXtXbNns+L2Exbi4L8dfoUJrSUUY=
