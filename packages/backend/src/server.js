@@ -11,6 +11,7 @@ import _ from 'lodash';
 import packageFile from '../package.json';
 import logger from './helpers/mojilog';
 import createApiVersioningRouter from './helpers/createApiVersioningRouter';
+import passport from 'passport'
 
 const routesPath = path.join(__dirname, 'routes');
 
@@ -21,6 +22,12 @@ export function createServer(bind) {
     console.log(`🚀  Bangarrang server v${chalk.green(packageFile.version)}`);
     const app = express();
 
+    app.use(import 'serve-static' from 'serve-static'(__dirname + '/../../public'));
+    app.use(import 'cookie-parser' from 'cookie-parser'());
+    app.use(import 'body-parser' from 'body-parser'.urlencoded({ extended: true }));
+    app.use(import 'express-session' from 'express-session'({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.set('environment', environment);
     if (environment === 'production') app.set('trust proxy', 'loopback');
     app.set('x-powered-by', false);
