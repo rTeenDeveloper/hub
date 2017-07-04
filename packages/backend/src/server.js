@@ -1,17 +1,18 @@
 import chalk from 'chalk';
 import express from 'express';
+import session from 'express-session';
 import cors from 'cors';
 import path from 'path';
 import requestLogger from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import session from 'express-session';
 import listFiles from 'recursive-readdir-sync';
 import _ from 'lodash';
+import passport from 'passport';
+
 import packageFile from '../package.json';
 import logger from './helpers/mojilog';
 import createApiVersioningRouter from './helpers/createApiVersioningRouter';
-import passport from 'passport'
 
 const routesPath = path.join(__dirname, 'routes');
 
@@ -19,7 +20,11 @@ const routesPath = path.join(__dirname, 'routes');
 export function createServer(bind) {
   const environment = process.env.NODE_ENV || 'development';
   return new Promise(resolve => {
-    console.log(`🚀  Bangarrang server v${chalk.green(packageFile.version)}`);
+    console.log(
+      `🚀  /r/TeenDeveloper community hub server v${chalk.green(
+        packageFile.version
+      )}`
+    );
     const app = express();
     app.set('environment', environment);
     if (environment === 'production') app.set('trust proxy', 'loopback');
@@ -30,10 +35,11 @@ export function createServer(bind) {
     logger.inProd('Connecting middleware...');
     app.use(passport.initialize());
     app.use(passport.session());
-    
+    app.use(session({ secret: 'XkCdBaTTeRySTApleCoRrEECt' }));
     app.use(cors({ origin: true, credentials: true }));
     if (environment === 'development') app.use(requestLogger('dev'));
     app.use(bodyParser.json());
+
     logger.inProd('Mounting API...');
     app.get('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
     logger.inProd('Mounting routes...');
