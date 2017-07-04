@@ -33,9 +33,9 @@ export function createServer(bind) {
     logger.inProd('Initializing DB...');
 
     logger.inProd('Connecting middleware...');
+    app.use(session({ secret: 'XkCdBaTTeRySTApleCoRrEECt' }));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(session({ secret: 'XkCdBaTTeRySTApleCoRrEECt' }));
     app.use(cors({ origin: true, credentials: true }));
     if (environment === 'development') app.use(requestLogger('dev'));
     app.use(bodyParser.json());
