@@ -1,0 +1,7 @@
+{
+  "name": "community-hub",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^2.0.0-rc.5"
+  }
+}

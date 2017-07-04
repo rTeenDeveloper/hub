@@ -1,0 +1,22 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        "es2015",
+        "stage-0",
+        "stage-1",
+        "react"
+      ]
+    }
+  },
+  "presets": [
+    ["es2015", {"modules": false}],
+    "stage-0",
+    "stage-1",
+    "react"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "react-hot-loader/babel"
+  ]
+}
