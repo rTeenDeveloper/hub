@@ -5,9 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import requestLogger from 'morgan';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import listFiles from 'recursive-readdir-sync';
-import _ from 'lodash';
 import passport from 'passport';
 
 import packageFile from '../package.json';
@@ -42,6 +40,7 @@ export function createServer(bind) {
 
     logger.inProd('Mounting API...');
     app.get('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
+
     logger.inProd('Mounting routes...');
     listFiles(routesPath)
       .filter(item => !item.includes('__test__'))
