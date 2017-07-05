@@ -24,7 +24,7 @@ git reset --hard origin/development
 * For chores (updating dependencies, etc...) - chore/issuenumber-update-dependencies, for example
 
 ## Commit naming
-* First of all - a pull request to a bugfix should consist of one commit. Nobody likes thousands of commits, which actually worsen repo view and make navigating commits a lot harder. Use `git commit --amend`, `git push --force`
+* First of all - a pull request to a bugfix should consist of one commit. Nobody likes thousands of commits, which actually worsen repo view and make navigating commits a lot harder. Use `git commit --amend`, `git push --force`, and learn how to squash commits.
 * Start a commit with issue#. Example: `#123: Fixes incorrect naming of variable`
 * No pointless commit messages like "tada". You ain't shittin' where you eatin', once again
 * First line of the commit - 80 chars
