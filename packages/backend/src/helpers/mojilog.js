@@ -2,24 +2,30 @@ import chalk from 'chalk';
 
 export default class Logger {
   static inProd(msg) {
-    console.log(`🖥  ${chalk.cyan(msg)}`);
+    console.log(`${chalk.bold.green.inverse(' INFO ')} ${chalk.green(msg)}`);
   }
 
   static inTest(msg) {
     if (process.env.NODE_ENV !== 'production')
-      console.log(`🔬  ${chalk.blue(msg)}`);
+      console.log(
+        `${chalk.bold.magenta.inverse(' VERB ')} ${chalk.magenta(msg)}`
+      );
   }
 
   static toInvestigate(msg) {
     if (msg instanceof Error)
       return Logger.formatError(msg).forEach(::Logger.toInvestigate);
-    return console.warn(chalk.bgYellow(`⚠️  ${chalk.bold.black(msg)}`));
+    return console.warn(
+      `${chalk.bold.yellow.inverse(' WARN ')} ${chalk.yellow(msg)}`
+    );
   }
 
   static ACHTUNG_ALL_BROKEN(err) {
     if (err instanceof Error)
       return Logger.formatError(err).forEach(::Logger.ACHTUNG_ALL_BROKEN);
-    return console.error(chalk.bgRedBright(`💀  ${chalk.bold.black(err)}`));
+    return console.error(
+      `${chalk.bold.redBright.inverse(' ERR  ')} ${chalk.redBright(err)}`
+    );
   }
 
   static formatError(err) {
