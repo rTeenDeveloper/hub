@@ -33,10 +33,11 @@
     "lodash": "^4.17.4",
     "mongoose": "^4.11.0",
     "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-reddit": "^0.2.4",
     "recursive-readdir-sync": "^1.0.6",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "passport": "^0.3.2"
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "airbnb-style": "^2.0.0",
