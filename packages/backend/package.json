@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "babel src -d build",
-    "dev:server": "nodemon src/index.js --exec babel-node",
+    "dev:server": "nodemon src/*.js --exec babel-node",
     "ci": "eslint src && npm test"
   },
   "author": "",
@@ -31,12 +31,13 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "lodash": "^4.17.4",
-    "mongoose": "^4.11.0",
+    "mongoose": "^4.11.1",
     "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-reddit": "^0.2.4",
     "recursive-readdir-sync": "^1.0.6",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "passport": "^0.3.2"
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "airbnb-style": "^2.0.0",

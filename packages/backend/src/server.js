@@ -11,8 +11,19 @@ import passport from 'passport';
 import packageFile from '../package.json';
 import logger from './helpers/mojilog';
 import createApiVersioningRouter from './helpers/createApiVersioningRouter';
+import setupPassportStrategies from './helpers/setupPassportStrategies';
 
 const routesPath = path.join(__dirname, 'routes');
+
+passport.serializeUser(function(user, done) {
+  // TODO: serialize
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  // TODO: deserialize
+  done(null, obj);
+});
 
 // eslint-disable-next-line
 export function createServer(bind) {
@@ -35,11 +46,12 @@ export function createServer(bind) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({ origin: true, credentials: true }));
+    setupPassportStrategies(passport);
     if (environment === 'development') app.use(requestLogger('dev'));
     app.use(bodyParser.json());
 
     logger.inProd('Mounting API...');
-    app.get('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
+    app.use('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
 
     logger.inProd('Mounting routes...');
     listFiles(routesPath)
@@ -54,7 +66,7 @@ export function createServer(bind) {
           ? tempRoute.URL
           : rpath.substr(0, rpath.lastIndexOf('.')) || rpath;
         logger.inProd(
-          chalk`Mounting {white ${rpath}} on {white ${mountpoint}}`
+          chalk `Mounting {white ${rpath}} on {white ${mountpoint}}`
         );
         app.use(mountpoint, tempRoute);
       });
@@ -67,6 +79,17 @@ export function createServer(bind) {
       res.json({ data: { healthy: true } })
     );
 
+    app.get('/auth_status', (req, res) =>
+      res.json({
+        'auth_status': req.isAuthenticated(),
+        'user': req.user,
+      })
+    );
+    app.get('/login_failure', (req, res) => {
+      // TODO: write proper implementation
+      res.write('Sorry we couldn\'t find your user.\n');
+      res.end();
+    });
     const server = app.listen(bind, () => {
       console.log(`✅  Application bound and running`);
       resolve(server);
