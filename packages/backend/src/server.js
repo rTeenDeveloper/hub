@@ -11,8 +11,19 @@ import passport from 'passport';
 import packageFile from '../package.json';
 import logger from './helpers/mojilog';
 import createApiVersioningRouter from './helpers/createApiVersioningRouter';
+import setupPassportStrategies from './helpers/setupPassportStrategies';
 
 const routesPath = path.join(__dirname, 'routes');
+
+passport.serializeUser((user, done) => {
+  // TODO: serialize
+  done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+  // TODO: deserialize
+  done(null, obj);
+});
 
 // eslint-disable-next-line
 export function createServer(bind) {
@@ -35,11 +46,12 @@ export function createServer(bind) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({ origin: true, credentials: true }));
+    setupPassportStrategies(passport);
     if (environment === 'development') app.use(requestLogger('dev'));
     app.use(bodyParser.json());
 
     logger.inProd('Mounting API...');
-    app.get('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
+    app.use('/api', createApiVersioningRouter(path.join(__dirname, 'api')));
 
     logger.inProd('Mounting routes...');
     listFiles(routesPath)
