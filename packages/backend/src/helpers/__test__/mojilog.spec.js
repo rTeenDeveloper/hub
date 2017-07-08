@@ -12,7 +12,7 @@ describe('mojilog', () => {
   });
 
   describe('.inProd()', () => {
-    test('should log to the console', () => {
+    test('logs to the console', () => {
       logger.inProd('test');
       expect(global.console.log).toBeCalledWith(
         `${chalk.bold.bgGreen.inverse(' INFO ')} ${chalk.green('test')}`
@@ -21,14 +21,14 @@ describe('mojilog', () => {
   });
 
   describe('.inTest()', () => {
-    test('should log to the console on environments different from production', () => {
+    test('logs to the console on environments different from production', () => {
       logger.inTest('test');
       expect(global.console.log).toBeCalledWith(
         `${chalk.bold.bgMagenta.inverse(' VERB ')} ${chalk.magenta('test')}`
       );
     });
 
-    test('should not log to the console on production', () => {
+    test('does not log to the console on production', () => {
       process.env.NODE_ENV = 'production';
       logger.inTest('test');
       expect(global.console.log).not.toBeCalled();
@@ -36,13 +36,13 @@ describe('mojilog', () => {
   });
 
   describe('.toInvestigate()', () => {
-    test('should log message to the console', () => {
+    test('logs message to the console', () => {
       logger.toInvestigate('test');
       expect(global.console.warn).toBeCalledWith(
         `${chalk.bold.bgYellow.inverse(' WARN ')} ${chalk.yellow('test')}`
       );
     });
-    test('should log error to the console', () => {
+    test('logs error to the console', () => {
       const err = new Error('');
       logger.toInvestigate(err);
       expect(global.console.warn).toBeCalledWith(
@@ -58,13 +58,13 @@ describe('mojilog', () => {
   });
 
   describe('.ACHTUNG_ALL_BROKEN()', () => {
-    test('should log message to the console', () => {
+    test('logs message to the console', () => {
       logger.ACHTUNG_ALL_BROKEN('test');
       expect(global.console.error).toBeCalledWith(
         `${chalk.bold.bgRedBright.inverse(' ERR  ')} ${chalk.redBright('test')}`
       );
     });
-    test('should log error to the console', () => {
+    test('logs error to the console', () => {
       const err = new Error('');
       logger.ACHTUNG_ALL_BROKEN(err);
       expect(global.console.error).toBeCalledWith(
@@ -82,7 +82,7 @@ describe('mojilog', () => {
   });
 
   describe('.formatError()', () => {
-    test('it should transform exception to array of strings', () => {
+    test('transforms exception to array of strings', () => {
       const err = new Error();
       expect(logger.formatError(err)).toEqual([
         '--- STACKTRACE START ---',
