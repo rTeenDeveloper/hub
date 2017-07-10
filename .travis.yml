@@ -8,9 +8,14 @@ before_install:
   - npm i -g npm@4 # npm v5 doesnt really work with lerna
 
 before_script:
+  - sleep 15
+  - mongo rtd_hub_test --eval 'db.addUser("travis", "test")'
   - lerna bootstrap --hoist
 
 script: lerna run ci
+
+services:
+  - mongodb
 
 notifications:
   slack:
