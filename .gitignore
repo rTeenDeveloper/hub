@@ -218,3 +218,6 @@ Temporary Items
 
 # Lerna
 packages/*/node_modules
+
+# Astra
+packages/backend/config-persistence.json

@@ -5,13 +5,16 @@ import { initRequestLibrary, SERVER_URL } from '../testFixtures';
 describe('server', () => {
   let server;
   let request;
-  beforeEach(() => {
+  beforeAll(() => {
     request = initRequestLibrary();
     return createServer(3000).then(serverInstance => {
       server = serverInstance;
     });
   });
-  afterEach(() => server.close());
+
+  afterAll(done => {
+    server.closeDb().then(() => server.close(done));
+  });
 
   test('should start up on port 3000', async () => {
     const result = await request.get({

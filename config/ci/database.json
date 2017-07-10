@@ -1,0 +1,7 @@
+{
+  "database" : {
+    "user": "travis",
+    "password": "test",
+    "dbname": "rtd_hub_test"
+  }
+}
