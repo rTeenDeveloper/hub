@@ -221,3 +221,5 @@ packages/*/node_modules
 
 # Astra
 packages/backend/config-persistence.json
+# You will need your own oAuth config
+config/*/oauth.json

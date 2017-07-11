@@ -1,0 +1,20 @@
+{
+  "oauth": {
+    "reddit": {
+      "clientId": "ID",
+      "clientSecret": "SECRET"
+    },
+    "github": {
+      "clientId": "ID",
+      "clientSecret": "SECRET"
+    },
+    "gitlab": {
+      "clientId": "ID",
+      "clientSecret": "SECRET"
+    },
+    "slack": {
+      "clientId": "ID",
+      "clientSecret": "SECRET"
+    }
+  }
+}

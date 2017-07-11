@@ -119,6 +119,10 @@ function bootstrapApi(apiRootDirectory, version, minVersion, router) {
   logger.inProd(`Bootstrapping API ${chalk.green(`v${version}`)}`);
   router.use(
     `/v${version}`,
+    (req, res, next) => {
+      req.apiVersion = version;
+      next();
+    },
     createRouterFromMapping(
       getApiMethodList(apiRootDirectory, version, minVersion)
     )
