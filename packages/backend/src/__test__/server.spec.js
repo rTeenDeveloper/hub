@@ -2,6 +2,16 @@
 import { createServer } from '../server';
 import { initRequestLibrary, SERVER_URL } from '../testFixtures';
 
+describe('createServer()', () => {
+  test('should return closeable server', async () => {
+    const server = await createServer(3001);
+    expect(server.close).toBeDefined();
+    expect(server.closeDb).toBeDefined();
+    expect(server.shutdownServer).toBeDefined();
+    await server.shutdownServer();
+  });
+});
+
 describe('server', () => {
   let server;
   let request;
@@ -12,9 +22,7 @@ describe('server', () => {
     });
   });
 
-  afterAll(done => {
-    server.closeDb().then(() => server.close(done));
-  });
+  afterAll(() => server.shutdownServer());
 
   test('should start up on port 3000', async () => {
     const result = await request.get({
