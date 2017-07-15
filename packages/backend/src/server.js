@@ -154,7 +154,12 @@ export async function createServer(bind) {
 
       const server = app.listen(bind, () => {
         console.log(`✅  Application bound and running`);
-        server.closeDb = mongoose.disconnect;
+        server.closeDb = mongoose.disconnect.bind(mongoose);
+        server.shutdownServer = async () =>
+          Promise.all([
+            server.closeDb(),
+            new Promise(onServerClose => server.close(onServerClose)),
+          ]);
         resolve(server);
       });
     } catch (e) {
